@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ChatGPT Demo</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        .chat-container {
+            width: 500px;
+            margin: 0 auto;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+        }
+
+        .message {
+            margin-bottom: 10px;
+        }
+
+        .user-message {
+            text-align: right;
+            color: #065fd4;
+        }
+
+        .bot-message {
+            text-align: left;
+            color: #555555;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 5px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+<h1>ChatGPT Demo</h1>
+<div class="chat-container">
+    <div class="message bot-message">Hello! How can I assist you today?</div>
+    <div class="message user-message">
+        <input type="text" id="user-input" placeholder="Type your message here" autofocus>
+    </div>
+</div>
+
+<script>
+    const chatContainer = document.querySelector('.chat-container');
+    const userInput = document.getElementById('user-input');
+
+    userInput.addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            const userMessage = userInput.value;
+            appendMessage(userMessage, 'user-message');
+            userInput.value = '';
+            sendRequest(userMessage);
+        }
+    });
+
+    function appendMessage(message, className) {
+        const messageElement = document.createElement('div');
+        messageElement.classList.add('message', className);
+        messageElement.textContent = message;
+        chatContainer.insertBefore(messageElement, chatContainer.lastElementChild);
+        chatContainer.scrollTop = chatContainer.scrollHeight;
+    }
+
+    function sendRequest(userMessage) {
+        const requestBody = JSON.stringify({ prompt: userMessage, max_tokens: 50 });
+
+        fetch('https://api.openai.com/v1/chat/completions', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer YOUR_API_KEY'
+            },
+            body: requestBody
+        })
+            .then(response => response.json())
+            .then(data => {
+                const botMessage = data.choices[0].text.trim();
+                appendMessage(botMessage, 'bot-message');
+            })
+            .catch(error => console.error(error));
+    }
+</script>
+</body>
+</html>
