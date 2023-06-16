@@ -69,6 +69,30 @@ public class TrayNGServiceImpl implements TrayNGService {
     @Override
     public List<TrayNGDownload> getByDate(String date) {
         List<TrayNGDownload> data = trayNGDownloadDao.getByDate(date + "%");
+        return getTrayNumber(data);
+    }
+
+    @Override
+    public List<TrayNGDownload> getByName(String name) {
+        List<TrayNGDownload> data = trayNGDownloadDao.getByName(name);
+        return getTrayNumber(data);
+    }
+
+    @Override
+    public boolean deleteById(Integer id) {
+        return trayNGDao.deleteById(id) == 1;
+
+    }
+
+    @Override
+    public List<TrayNG> getAll() {
+        LambdaQueryWrapper<TrayNG> lqw = new LambdaQueryWrapper<>();
+        lqw.orderByDesc(TrayNG::getId);
+        return trayNGDao.selectList(lqw);
+    }
+
+
+    private List<TrayNGDownload> getTrayNumber(List<TrayNGDownload> data) {
         List<TrayNGDownload> result = new ArrayList<>();
         for (TrayNGDownload datum : data) {
             String trayNumber = trayInfoService.getTrayNumber(datum);

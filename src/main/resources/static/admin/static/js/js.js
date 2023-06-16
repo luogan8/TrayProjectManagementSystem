@@ -29,7 +29,8 @@ var app = new Vue({
         trayNameMenu:[],
         trayTypeMenu:[],
         getNGLogDate:'',
-        getLRLogName:''
+        getLRLogName:'',
+        editTraysData: {type:'', data:[]}
 
     },
     methods:{
@@ -169,7 +170,7 @@ var app = new Vue({
             }
 
         },
-        // TODO 获取tray nameType
+        // TODO 获取tray name
         getTrayMenu:function (){
             var that = this
             axios.get('../trayMenu')
@@ -181,6 +182,7 @@ var app = new Vue({
                     console.log(error);
                 });
         },
+        // TODO 获取tray Type
         getTrayType:function (trayName){
             var that = this
             axios.get('../trayMenu/getType/' + trayName)
@@ -207,6 +209,45 @@ var app = new Vue({
             }else {
                 window.open("../download/lr/" + this.getLRLogName)
             }
-        }
+        },
+        //TODO 获取edit数据
+        getEditTraysData:function (type){
+            var url = '';
+            var that = this;
+            switch (type){
+                case 'lr':
+                    url = '../edit/lr';
+                    break;
+                case 'ng':
+                    url = '../edit/ng';
+                    break;
+                case 'outside':
+                    url = '../edit/outside';
+                    break;
+            }
+            axios.get(url)
+                .then(function (response) {
+                    that.editTraysData.data = response.data.data;
+                    that.editTraysData.type = type;
+
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
+        //TODO delete data
+        deleteData:function (id){
+            var that = this;
+            var url = '../edit/' + this.editTraysData.type + '/' + id;
+            axios.get(url)
+                .then(function (response) {
+                    alert(response.data.msg)
+                    that.getEditTraysData(that.editTraysData.type)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
+
     }
 });

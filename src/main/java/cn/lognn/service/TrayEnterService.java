@@ -28,4 +28,6 @@ public interface TrayEnterService {
     public boolean upInLine(TrayEnter trayEnter);
 
     public List<TrayLRDownload> getDownload(String name);
+
+    public boolean deleteById(Integer id);
 }
