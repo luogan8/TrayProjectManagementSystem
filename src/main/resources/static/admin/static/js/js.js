@@ -34,10 +34,16 @@ var app = new Vue({
     },
     methods:{
         // TODO 退出登录
-        logout:function (){
-            axios.get("../users/logout")
-            window.location.href="../login.html"
+        logout: function() {
+            axios.get("../users/logout?times=" + Date.now())
+                .then(function(response) {
+                    location.reload(); // 重新加载当前页面
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
         },
+
         // TODO 添加新项目
         addNewTray:function (){
             if (this.newTrayName !== '' && this.newTrayType !== '' && this.newTrayNumber !== ''){
