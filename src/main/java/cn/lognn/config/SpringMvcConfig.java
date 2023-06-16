@@ -20,6 +20,7 @@ public class SpringMvcConfig implements WebMvcConfigurer {
         registry.addInterceptor(new ProjectInterceptor()).addPathPatterns("/download/ng/**");
 //        registry.addInterceptor(new ProjectInterceptor()).addPathPatterns("/download/lr/**");
         registry.addInterceptor(new ProjectInterceptor()).addPathPatterns("/download/info");
+        registry.addInterceptor(new ProjectInterceptor()).addPathPatterns("/edit/**");
     }
 
 }

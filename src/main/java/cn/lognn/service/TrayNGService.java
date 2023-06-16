@@ -19,5 +19,10 @@ public interface TrayNGService {
     public boolean update(TrayNG tray);
 
     public List<TrayNGDownload> getByDate(String date);
+    public List<TrayNGDownload> getByName(String name);
+
+    public boolean deleteById (Integer id);
+
+    public List<TrayNG> getAll();
 
 }

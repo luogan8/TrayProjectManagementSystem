@@ -42,7 +42,7 @@ function getByName(e) {
                         $("#table").show();
                         $("#tbody").html(tableRows);
                         $("#footer").show();
-                        var outDataLink = '<a href="./download/lr/' + e +'" target="_blank" style="text-decoration: none">《' + e +'》领入明细导出</a>'
+                        var outDataLink = '<a href="./download/lr/' + e +'" target="_blank" style="text-decoration: none">《' + e +'》领入明细导出</a> 丨 <a href="./download/ngProject/' + e +'" target="_blank" style="text-decoration: none">《' + e +'》NG明细导出</a>'
                         $("#outData").html(outDataLink);
                         outData.style.display = 'block';
                     } else {

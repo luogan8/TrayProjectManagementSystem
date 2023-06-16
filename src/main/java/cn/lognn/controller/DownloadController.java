@@ -41,13 +41,12 @@ public class DownloadController {
 
     /**
      * 报废记录导出
-     * @param response
-     * @param date
-     * @throws IOException
+     * @param response 无可奉告
+     * @param date 无可奉告
+     * @throws IOException 无可奉告
      */
     @GetMapping("/ng/{date}")
     public void ngDownload(HttpServletResponse response, @PathVariable String date) throws IOException {
-
         List<TrayNGDownload> data = trayNGService.getByDate(date);
         String fileName = "TrayNG报废@" + date;
         setResponseHeaders(response, fileName);
@@ -56,8 +55,8 @@ public class DownloadController {
 
     /**
      * 库存信息导出
-     * @param response
-     * @throws IOException
+     * @param response 无可奉告
+     * @throws IOException 无可奉告
      */
     @GetMapping("/info")
     public void infoDownload(HttpServletResponse response) throws IOException {
@@ -79,5 +78,19 @@ public class DownloadController {
         String fileName = name + "领入明细";
         setResponseHeaders(response, fileName);
         EasyExcel.write(response.getOutputStream(), TrayLRDownload.class).sheet(name + "领入明细").doWrite(data);
+    }
+
+    /**
+     * 根据项目名称导出NG数据
+     * @param response 返回
+     * @param name 项目名称
+     * @throws IOException io异常抛出
+     */
+    @GetMapping("/ngProject/{name}")
+    public void ngGetByNameDownload(HttpServletResponse response, @PathVariable String name) throws IOException {
+        List<TrayNGDownload> data = trayNGService.getByName(name);
+        String fileName = "TrayNG报废@" + name;
+        setResponseHeaders(response, fileName);
+        EasyExcel.write(response.getOutputStream(), TrayNGDownload.class).sheet(name + "TrayNG报废数据").doWrite(data);
     }
 }

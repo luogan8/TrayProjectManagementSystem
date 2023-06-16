@@ -68,4 +68,16 @@ public class TrayOutsideServiceImpl implements TrayOutsideService {
         }
         return trayInfoDao.update(trayInfo, queryWrapper) > 0;
     }
+
+    @Override
+    public List<TrayOutside> getAll() {
+        LambdaQueryWrapper<TrayOutside> lqw = new LambdaQueryWrapper<>();
+        lqw.orderByDesc(TrayOutside::getId);
+        return trayOutsideDao.selectList(lqw);
+    }
+
+    @Override
+    public boolean deleteById(Integer id) {
+        return trayOutsideDao.deleteById(id) == 1;
+    }
 }

@@ -44,7 +44,9 @@ public class TrayEnterServiceImpl implements TrayEnterService {
 
     @Override
     public List<TrayEnter> getAll() {
-        return trayEnterDao.selectList(null);
+        LambdaQueryWrapper<TrayEnter> lqw = new LambdaQueryWrapper<>();
+        lqw.orderByDesc(TrayEnter::getId);
+        return trayEnterDao.selectList(lqw);
     }
 
     @Override
@@ -61,6 +63,11 @@ public class TrayEnterServiceImpl implements TrayEnterService {
     @Override
     public List<TrayLRDownload> getDownload(String name) {
         return trayLRDownloadDao.getByName(name);
+    }
+
+    @Override
+    public boolean deleteById(Integer id) {
+        return trayEnterDao.deleteById(id) == 1;
     }
 
 

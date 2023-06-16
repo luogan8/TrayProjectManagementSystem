@@ -12,4 +12,8 @@ import java.util.List;
 public interface TrayNGDownloadDao extends BaseMapper<TrayNGDownload> {
     @Select("select * from tray_nglog where date like #{date}")
     public List<TrayNGDownload> getByDate(String date);
+
+    @Select("select * from tray_nglog where name =  #{name}")
+    public List<TrayNGDownload> getByName(String name);
+
 }

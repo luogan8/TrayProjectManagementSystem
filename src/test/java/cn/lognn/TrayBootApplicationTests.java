@@ -58,8 +58,7 @@ class TrayBootApplicationTests {
 
     @Test
     void getTrayType(){
-        List<String> max = trayMenuService.getTrayTypeMenu("max");
-        System.out.println(max);
+        System.out.println(trayNGService.getAll());
     }
 
 }
