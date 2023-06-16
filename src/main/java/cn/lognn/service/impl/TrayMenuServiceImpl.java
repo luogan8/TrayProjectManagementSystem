@@ -25,9 +25,9 @@ public class TrayMenuServiceImpl implements TrayMenuService {
     }
 
     @Override
-    public List<String> getTrayTypeMenu() {
+    public List<String> getTrayTypeMenu(String trayName) {
         List<String> list = new ArrayList<>();
-        List<TrayInfo> types = trayInfoDao.getTypes();
+        List<TrayInfo> types = trayInfoDao.getTypes(trayName);
         for (TrayInfo type : types) {
             list.add(type.getTrayType());
         }

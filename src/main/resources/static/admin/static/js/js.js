@@ -175,8 +175,18 @@ var app = new Vue({
             axios.get('../trayMenu')
                 .then(function (response) {
                     console.log(response);
-                    that.trayNameMenu = response.data.data.nameMenu;
-                    that.trayTypeMenu = response.data.data.typeMenu;
+                    that.trayNameMenu = response.data.data;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
+        getTrayType:function (trayName){
+            var that = this
+            axios.get('../trayMenu/getType/' + trayName)
+                .then(function (response) {
+                    console.log(response);
+                    that.trayTypeMenu = response.data.data;
                 })
                 .catch(function (error) {
                     console.log(error);
