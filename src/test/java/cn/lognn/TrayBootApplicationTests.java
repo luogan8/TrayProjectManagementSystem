@@ -7,10 +7,7 @@ import cn.lognn.dao.UserDao;
 import cn.lognn.domain.TrayInfoDownload;
 import cn.lognn.domain.TrayLRDownload;
 import cn.lognn.domain.TrayNGDownload;
-import cn.lognn.service.TrayEnterService;
-import cn.lognn.service.TrayInfoService;
-import cn.lognn.service.TrayNGService;
-import cn.lognn.service.UserService;
+import cn.lognn.service.*;
 ;
 import com.alibaba.excel.EasyExcel;
 import com.fasterxml.jackson.annotation.JsonFormat;
@@ -54,12 +51,14 @@ class TrayBootApplicationTests {
     @Autowired
     private TrayInfoService trayInfoService;
 
+    @Autowired
+    private TrayMenuService trayMenuService;
+
 
 
     @Test
-    void getDown(){
-        List<TrayLRDownload> max = trayEnterService.getDownload("max");
-
+    void getTrayType(){
+        List<String> max = trayMenuService.getTrayTypeMenu("max");
         System.out.println(max);
     }
 

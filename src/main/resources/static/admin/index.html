@@ -162,7 +162,7 @@
             </div>
             <div class="mb-3">
               <label for="description" class="form-label">项目名称</label>
-              <select class="form-select" id="lrTrayName" v-model="lrTrayName">
+              <select class="form-select" id="lrTrayName" v-model="lrTrayName" @click="getTrayType(lrTrayName.valueOf())">
                 <option value=""></option>
                 <option v-for="name in trayNameMenu">{{ name }}</option>
               </select>
@@ -209,7 +209,7 @@
             </div>
             <div class="mb-3">
               <label for="description" class="form-label">项目名称</label>
-              <select class="form-select" id="ngTrayName" v-model="ngTrayName">
+              <select class="form-select" id="ngTrayName" v-model="ngTrayName" @click="getTrayType(ngTrayName.valueOf())">
                 <option value=""></option>
                 <option v-for="name in trayNameMenu">{{ name }}</option>
               </select>
@@ -257,7 +257,7 @@
             </div>
             <div class="mb-3">
               <label for="description" class="form-label">项目名称</label>
-              <select class="form-select" id="outsideTrayName" v-model="outsideTrayName">
+              <select class="form-select" id="outsideTrayName" v-model="outsideTrayName" @click="getTrayType(outsideTrayName.valueOf())">
                 <option value=""></option>
                 <option v-for="name in trayNameMenu">{{ name }}</option>
               </select>
@@ -386,5 +386,6 @@
 <script src="./static/js/vue.js"></script>
 <script src="../static/js/axios.min.js"></script>
 <script src="./static/js/js.js"></script>
+<script src="./static/js/jquery.min.js"></script>
 </body>
 </html>

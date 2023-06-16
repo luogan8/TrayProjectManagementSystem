@@ -4,5 +4,5 @@ import java.util.List;
 
 public interface TrayMenuService {
     public List<String> getTrayNameMenu();
-    public List<String> getTrayTypeMenu();
+    public List<String> getTrayTypeMenu(String trayName);
 }

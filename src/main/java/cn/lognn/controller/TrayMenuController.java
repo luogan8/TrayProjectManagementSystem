@@ -1,8 +1,10 @@
 package cn.lognn.controller;
 
 import cn.lognn.service.TrayMenuService;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,11 +23,14 @@ public class TrayMenuController {
     @GetMapping
     public Result getTrayMenu(){
         List<String> trayNameMenu = trayMenuService.getTrayNameMenu();
-        List<String> trayTypeMenu = trayMenuService.getTrayTypeMenu();
-        Map<String, List<String>> map = new HashMap<>();
-        map.put("nameMenu", trayNameMenu);
-        map.put("typeMenu", trayTypeMenu);
-        return new Result(Code.GET_OK, map, "");
+        return new Result(Code.GET_OK, trayNameMenu, "");
     }
+
+    @GetMapping("/getType/{trayName}")
+    public Result trayTypeMenu(@PathVariable String trayName){
+        List<String> trayTypeMenu = trayMenuService.getTrayTypeMenu(trayName);
+        return new Result(Code.GET_OK, trayTypeMenu, "");
+    }
+
 
 }

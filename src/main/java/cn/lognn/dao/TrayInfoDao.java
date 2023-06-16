@@ -17,7 +17,7 @@ public interface TrayInfoDao extends BaseMapper<TrayInfo> {
     @Select("SELECT DISTINCT tray_name FROM tray_info ORDER BY tray_name")
     public List<TrayInfo> getNames();
 
-    @Select("SELECT DISTINCT tray_type FROM tray_info ORDER BY tray_type DESC")
-    public List<TrayInfo> getTypes();
+    @Select("SELECT DISTINCT tray_type FROM tray_info WHERE tray_name = #{trayName}")
+    public List<TrayInfo> getTypes(String trayName);
 
 }

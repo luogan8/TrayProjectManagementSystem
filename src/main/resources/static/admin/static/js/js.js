@@ -34,10 +34,16 @@ var app = new Vue({
     },
     methods:{
         // TODO 退出登录
-        logout:function (){
-            axios.get("../users/logout")
-            window.location.href="../login.html"
+        logout: function() {
+            axios.get("../users/logout?times=" + Date.now())
+                .then(function(response) {
+                    location.reload(); // 重新加载当前页面
+                })
+                .catch(function(error) {
+                    console.log(error);
+                });
         },
+
         // TODO 添加新项目
         addNewTray:function (){
             if (this.newTrayName !== '' && this.newTrayType !== '' && this.newTrayNumber !== ''){
@@ -169,8 +175,18 @@ var app = new Vue({
             axios.get('../trayMenu')
                 .then(function (response) {
                     console.log(response);
-                    that.trayNameMenu = response.data.data.nameMenu;
-                    that.trayTypeMenu = response.data.data.typeMenu;
+                    that.trayNameMenu = response.data.data;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
+        getTrayType:function (trayName){
+            var that = this
+            axios.get('../trayMenu/getType/' + trayName)
+                .then(function (response) {
+                    console.log(response);
+                    that.trayTypeMenu = response.data.data;
                 })
                 .catch(function (error) {
                     console.log(error);
