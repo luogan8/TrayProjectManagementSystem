@@ -1,13 +1,11 @@
 package cn.lognn.service.impl;
 
 import cn.hutool.core.io.file.FileReader;
-import cn.lognn.dao.TrayInfoDao;
-import cn.lognn.dao.TrayInfoDownloadDao;
-import cn.lognn.domain.TrayInfo;
-import cn.lognn.domain.TrayInfoDownload;
-import cn.lognn.domain.TrayNGDownload;
+import cn.lognn.dao.*;
+import cn.lognn.domain.*;
 import cn.lognn.service.TrayInfoService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import org.apache.ibatis.cache.Cache;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +16,15 @@ import java.util.List;
 public class TrayInfoServiceImpl implements TrayInfoService {
     @Autowired
     private TrayInfoDao trayDao;
+
+    @Autowired
+    private TrayNGDao trayNGDao;
+
+    @Autowired
+    private TrayEnterDao trayEnterDao;
+
+    @Autowired
+    private TrayOutsideDao trayOutsideDao;
 
     @Autowired
     private TrayInfoDownloadDao trayInfoDownloadDao;
@@ -106,7 +113,54 @@ public class TrayInfoServiceImpl implements TrayInfoService {
         return trayInfoDownloadDao.selectList(lqw);
     }
 
+    /**
+     * 根据ID更新库存
+     * @param type
+     * @return
+     */
+    @Override
+    public boolean update(String type, Integer sum, String trayName, String trayType, Integer state) {
+        LambdaQueryWrapper<TrayInfo> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(TrayInfo::getTrayName, trayName).eq(TrayInfo::getTrayType, trayType);
+        TrayInfo trayInfo = trayInfoDao.selectOne(lqw);
+        switch (type) {
+            case "lr" -> {
+                System.out.println("lr删除更新数据");
+                trayInfo.setTrayInside(trayInfo.getTrayInside() - sum);}
+            case "ng" -> {
+                System.out.println("ng删除更新数据");
+                trayInfo.setTrayInside(trayInfo.getTrayInside() + sum);
+            }
+            case "outside" -> {
+                switch (state) {
+                    case 0 -> {
+                        System.out.println(0);
+                        trayInfo.setTrayOutside(trayInfo.getTrayOutside() - sum);
+                        trayInfo.setTrayInside(trayInfo.getTrayInside() + sum);
+                    }
+                    case 1 -> {
+                        System.out.println(1);
+                        trayInfo.setTrayOutside(trayInfo.getTrayOutside() + sum);
+                        trayInfo.setTrayInside(trayInfo.getTrayInside() - sum);
+                    }
+                }
+            }
+            default -> {
+            }
+        }
+        trayInfoDao.updateById(trayInfo);
+        return false;
+    }
+
 
     public TrayInfoServiceImpl() {
+    }
+
+    @Autowired
+    private TrayInfoDao trayInfoDao;
+    public TrayInfo getTrayInfo(String trayName, String trayType){
+        LambdaQueryWrapper<TrayInfo> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(TrayInfo::getTrayName, trayName).eq(TrayInfo::getTrayType, trayType);
+        return trayInfoDao.selectOne(lqw);
     }
 }

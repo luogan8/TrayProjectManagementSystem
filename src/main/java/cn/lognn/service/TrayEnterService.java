@@ -1,7 +1,5 @@
 package cn.lognn.service;
-
 import cn.lognn.domain.TrayEnter;
-import cn.lognn.domain.TrayInfo;
 import cn.lognn.domain.TrayLRDownload;
 
 import java.util.List;
@@ -30,4 +28,6 @@ public interface TrayEnterService {
     public List<TrayLRDownload> getDownload(String name);
 
     public boolean deleteById(Integer id);
+
+    public TrayEnter getById(Integer id);
 }

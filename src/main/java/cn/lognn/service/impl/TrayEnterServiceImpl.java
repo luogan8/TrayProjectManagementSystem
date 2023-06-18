@@ -7,14 +7,11 @@ import cn.lognn.dao.TrayLRDownloadDao;
 import cn.lognn.domain.TrayEnter;
 import cn.lognn.domain.TrayInfo;
 import cn.lognn.domain.TrayLRDownload;
-import cn.lognn.domain.TrayNGDownload;
 import cn.lognn.service.TrayEnterService;
-import cn.lognn.service.TrayInfoService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 @Service
 public class TrayEnterServiceImpl implements TrayEnterService {
@@ -68,6 +65,11 @@ public class TrayEnterServiceImpl implements TrayEnterService {
     @Override
     public boolean deleteById(Integer id) {
         return trayEnterDao.deleteById(id) == 1;
+    }
+
+    @Override
+    public TrayEnter getById(Integer id) {
+        return trayEnterDao.selectById(id);
     }
 
 

@@ -5,6 +5,7 @@ import cn.lognn.domain.TrayEnter;
 import cn.lognn.domain.TrayNG;
 import cn.lognn.domain.TrayOutside;
 import cn.lognn.service.TrayEnterService;
+import cn.lognn.service.TrayInfoService;
 import cn.lognn.service.TrayNGService;
 import cn.lognn.service.TrayOutsideService;
 import cn.lognn.utils.MyUtils;
@@ -58,32 +59,45 @@ public class TrayEditController {
         return new Result(Code.GET_OK, data, "");
     }
 
-
-    @GetMapping("/lr/{id}")
+    @Autowired
+    private TrayInfoService trayInfoService;
+    @GetMapping("/delete/lr/{id}")
     public Result deleteLRById(HttpServletRequest request, @PathVariable Integer id){
         if (!MyUtils.checkLogin(request)) {
             return new Result(Code.SAVE_ERR, "", "非法操作！");
         }
+        TrayEnter trayEnter = trayEnterService.getById(id);
         boolean flag = trayEnterService.deleteById(id);
+        if (flag){
+            trayInfoService.update("lr", trayEnter.getNumber(), trayEnter.getName(), trayEnter.getType(), null);
+        }
         return new Result(Code.DELETE_OK, flag, flag? "删除成功" : "删除失败");
     }
 
-    @GetMapping("/ng/{id}")
+    @GetMapping("/delete/ng/{id}")
     public Result deleteNGById(HttpServletRequest request, @PathVariable Integer id){
         if (!MyUtils.checkLogin(request)) {
             return new Result(Code.SAVE_ERR, "", "非法操作！");
         }
+        TrayNG trayNG = trayNGService.getById(id);
         boolean flag = trayNGService.deleteById(id);
+        if (flag){
+            trayInfoService.update("ng", trayNG.getNumber(), trayNG.getName(), trayNG.getType(), null);
+        }
         return new Result(Code.DELETE_OK, flag, flag? "删除成功" : "删除失败");
     }
 
 
-    @GetMapping("/outside/{id}")
+    @GetMapping("/delete/outside/{id}")
     public Result deleteOutsideById(HttpServletRequest request, @PathVariable Integer id){
         if (!MyUtils.checkLogin(request)) {
             return new Result(Code.SAVE_ERR, "", "非法操作！");
         }
+        TrayOutside trayOutside = trayOutsideService.getById(id);
         boolean flag = trayOutsideService.deleteById(id);
+        if (flag){
+            trayInfoService.update("outside", trayOutside.getNumber(), trayOutside.getName(), trayOutside.getType(), trayOutside.getState());
+        }
         return new Result(Code.DELETE_OK, flag, flag? "删除成功" : "删除失败");
     }
 

@@ -15,4 +15,6 @@ public interface TrayOutsideService {
     public List<TrayOutside> getAll();
 
     public boolean deleteById(Integer id);
+
+    public TrayOutside getById(Integer id);
 }

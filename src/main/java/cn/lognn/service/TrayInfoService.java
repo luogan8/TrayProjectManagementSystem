@@ -53,4 +53,6 @@ public interface TrayInfoService {
     public String getTrayNumber(TrayNGDownload trayNGDownload);
 
     public List<TrayInfoDownload> getDownload();
+
+    public boolean update(String type, Integer sum, String trayName, String trayType, Integer state);
 }

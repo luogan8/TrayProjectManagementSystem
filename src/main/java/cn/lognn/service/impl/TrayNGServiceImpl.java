@@ -91,6 +91,11 @@ public class TrayNGServiceImpl implements TrayNGService {
         return trayNGDao.selectList(lqw);
     }
 
+    @Override
+    public TrayNG getById(Integer id) {
+        return trayNGDao.selectById(id);
+    }
+
 
     private List<TrayNGDownload> getTrayNumber(List<TrayNGDownload> data) {
         List<TrayNGDownload> result = new ArrayList<>();

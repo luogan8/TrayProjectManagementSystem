@@ -25,4 +25,7 @@ public interface TrayNGService {
 
     public List<TrayNG> getAll();
 
+
+    public TrayNG getById(Integer id);
+
 }

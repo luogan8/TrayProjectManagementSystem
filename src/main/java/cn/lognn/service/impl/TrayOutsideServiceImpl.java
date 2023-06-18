@@ -3,9 +3,7 @@ package cn.lognn.service.impl;
 import cn.lognn.dao.TrayInfoDao;
 import cn.lognn.dao.TrayOutsideDao;
 import cn.lognn.domain.TrayInfo;
-import cn.lognn.domain.TrayNG;
 import cn.lognn.domain.TrayOutside;
-import cn.lognn.service.TrayNGService;
 import cn.lognn.service.TrayOutsideService;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,5 +77,10 @@ public class TrayOutsideServiceImpl implements TrayOutsideService {
     @Override
     public boolean deleteById(Integer id) {
         return trayOutsideDao.deleteById(id) == 1;
+    }
+
+    @Override
+    public TrayOutside getById(Integer id) {
+        return trayOutsideDao.selectById(id);
     }
 }

@@ -237,16 +237,19 @@ var app = new Vue({
         },
         //TODO delete data
         deleteData:function (id){
+            var confirmDelete = confirm("你确认要删除这条数据吗？")
             var that = this;
-            var url = '../edit/' + this.editTraysData.type + '/' + id;
-            axios.get(url)
-                .then(function (response) {
-                    alert(response.data.msg)
-                    that.getEditTraysData(that.editTraysData.type)
-                })
-                .catch(function (error) {
-                    console.log(error);
-                });
+            var url = '../edit/delete/' + this.editTraysData.type + '/' + id;
+            if (confirmDelete){
+                axios.get(url)
+                    .then(function (response) {
+                        alert(response.data.msg)
+                        that.getEditTraysData(that.editTraysData.type)
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    });
+            }
         },
 
     }
