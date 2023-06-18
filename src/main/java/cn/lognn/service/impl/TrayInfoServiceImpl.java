@@ -119,7 +119,7 @@ public class TrayInfoServiceImpl implements TrayInfoService {
      * @return
      */
     @Override
-    public boolean update(String type, Integer sum, String trayName, String trayType, Integer state) {
+    public boolean deleteUpdate(String type, Integer sum, String trayName, String trayType, Integer state) {
         LambdaQueryWrapper<TrayInfo> lqw = new LambdaQueryWrapper<>();
         lqw.eq(TrayInfo::getTrayName, trayName).eq(TrayInfo::getTrayType, trayType);
         TrayInfo trayInfo = trayInfoDao.selectOne(lqw);

@@ -69,7 +69,7 @@ public class TrayEditController {
         TrayEnter trayEnter = trayEnterService.getById(id);
         boolean flag = trayEnterService.deleteById(id);
         if (flag){
-            trayInfoService.update("lr", trayEnter.getNumber(), trayEnter.getName(), trayEnter.getType(), null);
+            trayInfoService.deleteUpdate("lr", trayEnter.getNumber(), trayEnter.getName(), trayEnter.getType(), null);
         }
         return new Result(Code.DELETE_OK, flag, flag? "删除成功" : "删除失败");
     }
@@ -82,7 +82,7 @@ public class TrayEditController {
         TrayNG trayNG = trayNGService.getById(id);
         boolean flag = trayNGService.deleteById(id);
         if (flag){
-            trayInfoService.update("ng", trayNG.getNumber(), trayNG.getName(), trayNG.getType(), null);
+            trayInfoService.deleteUpdate("ng", trayNG.getNumber(), trayNG.getName(), trayNG.getType(), null);
         }
         return new Result(Code.DELETE_OK, flag, flag? "删除成功" : "删除失败");
     }
@@ -96,7 +96,7 @@ public class TrayEditController {
         TrayOutside trayOutside = trayOutsideService.getById(id);
         boolean flag = trayOutsideService.deleteById(id);
         if (flag){
-            trayInfoService.update("outside", trayOutside.getNumber(), trayOutside.getName(), trayOutside.getType(), trayOutside.getState());
+            trayInfoService.deleteUpdate("outside", trayOutside.getNumber(), trayOutside.getName(), trayOutside.getType(), trayOutside.getState());
         }
         return new Result(Code.DELETE_OK, flag, flag? "删除成功" : "删除失败");
     }

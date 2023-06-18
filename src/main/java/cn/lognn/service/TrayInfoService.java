@@ -54,5 +54,5 @@ public interface TrayInfoService {
 
     public List<TrayInfoDownload> getDownload();
 
-    public boolean update(String type, Integer sum, String trayName, String trayType, Integer state);
+    public boolean deleteUpdate(String type, Integer sum, String trayName, String trayType, Integer state);
 }
