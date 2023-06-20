@@ -24,6 +24,7 @@ public class TrayOutsideController {
        if (!MyUtils.checkLogin(request)){
            return new Result(Code.SAVE_ERR, "", "非法操作！");
        }
+       tray.setUser(MyUtils.getUser(request));
        boolean addSuccess = trayOutsideService.add(tray);
        boolean updateSuccess = false;
        if (addSuccess){

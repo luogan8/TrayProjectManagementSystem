@@ -114,9 +114,9 @@ public class TrayInfoServiceImpl implements TrayInfoService {
     }
 
     /**
-     * 根据ID更新库存
-     * @param type
-     * @return
+     * 删除数据时根据ID更新库存
+     * @param type 删除数据类
+     * @return 待定
      */
     @Override
     public boolean deleteUpdate(String type, Integer sum, String trayName, String trayType, Integer state) {

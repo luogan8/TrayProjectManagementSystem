@@ -87,7 +87,12 @@ public class TrayEditController {
         return new Result(Code.DELETE_OK, flag, flag? "删除成功" : "删除失败");
     }
 
-
+    /**
+     * 根据ID删除outside数据
+     * @param request res
+     * @param id 要删除的ID
+     * @return 响应对象
+     */
     @GetMapping("/delete/outside/{id}")
     public Result deleteOutsideById(HttpServletRequest request, @PathVariable Integer id){
         if (!MyUtils.checkLogin(request)) {

@@ -27,6 +27,7 @@ public class TrayInfoController {
        if (trayInfoService.trayCheck(trayInfo)){
             return new Result(Code.SAVE_ERR, "", "你添加的项目已存在，请勿重复添加。");
        }
+       trayInfo.setUser(MyUtils.getUser(request));
        boolean flag = trayInfoService.save(trayInfo);
        Integer code = flag ? Code.SAVE_OK : Code.SAVE_ERR;
        String msg = flag ? "添加成功" : "添加失败";

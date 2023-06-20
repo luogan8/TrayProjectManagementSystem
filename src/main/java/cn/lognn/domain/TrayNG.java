@@ -16,5 +16,6 @@ public class TrayNG {
     private String type;
     private Integer number;
     private String notes;
+    private String user;
 
 }

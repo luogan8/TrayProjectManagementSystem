@@ -18,6 +18,7 @@ public class TrayInfo {
     private Integer trayInside;
     private Integer trayOutside;
     private Integer deleted;
+    private String user;
     //数据库不存在字段
 //    @TableField(exist = false, select = false)
 //    private String passWord;

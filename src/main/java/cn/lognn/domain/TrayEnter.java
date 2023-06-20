@@ -14,6 +14,7 @@ public class TrayEnter {
     private String type;
     private Integer number;
     private String notes;
+    private String user;
     //操作记录
     //private String operator;
 

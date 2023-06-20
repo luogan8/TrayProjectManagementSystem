@@ -23,4 +23,10 @@ public class MyUtils {
         return user.getGrade() == 1;
 
     }
+    public static String getUser(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("user");
+        return user.getUserId();
+
+    }
 }

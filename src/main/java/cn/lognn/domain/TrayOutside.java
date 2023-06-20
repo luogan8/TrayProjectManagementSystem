@@ -16,5 +16,6 @@ public class TrayOutside {
     private Integer state;   //0+  1-
     private Integer number;
     private String notes;
+    private String user;
 
 }
