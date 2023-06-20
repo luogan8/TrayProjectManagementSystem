@@ -26,7 +26,7 @@ public class MyUtils {
     public static String getUser(HttpServletRequest request){
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("user");
-        return user.getUserId();
+        return user.getName();
 
     }
 }
