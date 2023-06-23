@@ -1,13 +1,11 @@
 package cn.lognn.controller;
 
 
+import cn.lognn.domain.Log;
 import cn.lognn.domain.TrayEnter;
 import cn.lognn.domain.TrayNG;
 import cn.lognn.domain.TrayOutside;
-import cn.lognn.service.TrayEnterService;
-import cn.lognn.service.TrayInfoService;
-import cn.lognn.service.TrayNGService;
-import cn.lognn.service.TrayOutsideService;
+import cn.lognn.service.*;
 import cn.lognn.utils.MyUtils;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +28,8 @@ public class TrayEditController {
     @Autowired
     private TrayOutsideService trayOutsideService;
 
+    @Autowired
+    private LogService logService;
 
     @GetMapping("/lr")
     public Result getEditLRData(HttpServletRequest request){
@@ -70,6 +70,7 @@ public class TrayEditController {
         boolean flag = trayEnterService.deleteById(id);
         if (flag){
             trayInfoService.deleteUpdate("lr", trayEnter.getNumber(), trayEnter.getName(), trayEnter.getType(), null);
+            logService.add(MyUtils.setLog(request, "删除领入:" + trayEnter.getName() + trayEnter.getType() + trayEnter.getNumber()));
         }
         return new Result(Code.DELETE_OK, flag, flag? "删除成功" : "删除失败");
     }

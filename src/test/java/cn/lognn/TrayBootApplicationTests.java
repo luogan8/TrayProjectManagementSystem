@@ -4,22 +4,16 @@ package cn.lognn;
 import cn.lognn.dao.TrayEnterDao;
 import cn.lognn.dao.TrayInfoDao;
 import cn.lognn.dao.UserDao;
-import cn.lognn.domain.TrayInfoDownload;
-import cn.lognn.domain.TrayLRDownload;
-import cn.lognn.domain.TrayNGDownload;
+import cn.lognn.domain.Log;
+
 import cn.lognn.service.*;
-;
-import com.alibaba.excel.EasyExcel;
-import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.Data;
+
 import org.junit.jupiter.api.Test;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 
 @SpringBootTest
@@ -54,11 +48,17 @@ class TrayBootApplicationTests {
     @Autowired
     private TrayMenuService trayMenuService;
 
-
+    @Autowired
+    private LogService logService;
 
     @Test
-    void getTrayType(){
-        System.out.println(trayNGService.getAll());
+    void addLog(){
+        Log log = new Log();
+        log.setDatetime(new Date());
+        log.setUser("1028");
+        log.setType("delete lr");
+        boolean add = logService.add(log);
+        System.out.println(add);
     }
 
 }
