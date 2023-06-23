@@ -23,7 +23,8 @@ public class TrayEnterController {
         if (!MyUtils.checkLogin(request)) {
             return new Result(Code.SAVE_ERR, "", "非法操作！");
         }
-        trayEnter.setUser(MyUtils.getUser(request));
+        String user = MyUtils.getUser(request);
+        trayEnter.setUser(user);
         boolean addSuccess = trayEnterService.add(trayEnter);
         boolean upInLineSuccess = false;
         if (addSuccess){
