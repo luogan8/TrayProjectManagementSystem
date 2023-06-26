@@ -9,7 +9,7 @@ import java.util.Date;
 @TableName("tray_log")
 public class Log {
     private Long id;
-    private Date datetime;
+    private String datetime;
     private String user;
     private String type;
 }
