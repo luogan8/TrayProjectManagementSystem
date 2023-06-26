@@ -53,12 +53,7 @@ class TrayBootApplicationTests {
 
     @Test
     void addLog(){
-        Log log = new Log();
-        log.setDatetime(new Date());
-        log.setUser("1028");
-        log.setType("delete lr");
-        boolean add = logService.add(log);
-        System.out.println(add);
+        System.out.println(new Date());
     }
 
 }

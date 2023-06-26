@@ -74,7 +74,6 @@ $(document).ready(function() {
     $("#footer").hide();
     $("#footer").html('<p></p><p class="h6 text-center">未做访问优化，仅测试程序！ -- <a href="./admin/index.html">数据管理</a></p><p class="h6 text-center">© 2023. Email：luog@boe.com.cn</p><p></p>');
     $("#thead").html("<tr><th>NO.</th><th>型号</th><th>类型</th><th>物料号</th><th>线内</th><th>线外</th></tr>");
-    $("#search-input").html('<input type="text" class="form-control" placeholder="请输入项目名称" id="inputData" onkeypress="BindEnter(event)"><button class="btn btn-success" type="submit" id="but" onclick="getByName($(\'#inputData\').val())">Go</button>');
 
     resizenow();
 });

@@ -35,7 +35,7 @@ public class MyUtils {
         String userName = getUser(request);
         Log log = new Log();
         log.setUser(userName);
-        log.setDatetime(new Date());
+        log.setDatetime(new Date().toString());
         log.setType(type);
         return log;
     }
