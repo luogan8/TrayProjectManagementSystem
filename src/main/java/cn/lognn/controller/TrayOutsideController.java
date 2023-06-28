@@ -2,7 +2,9 @@ package cn.lognn.controller;
 
 
 
+import cn.lognn.domain.Log;
 import cn.lognn.domain.TrayOutside;
+import cn.lognn.service.LogService;
 import cn.lognn.service.TrayOutsideService;
 import cn.lognn.utils.MyUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -17,6 +19,9 @@ public class TrayOutsideController {
     @Autowired
     private TrayOutsideService trayOutsideService;
 
+    @Autowired
+    private LogService logService;
+
 
     //添加
    @PostMapping
@@ -28,6 +33,8 @@ public class TrayOutsideController {
        boolean addSuccess = trayOutsideService.add(tray);
        boolean updateSuccess = false;
        if (addSuccess){
+           Log log = MyUtils.setLog(request, tray.getName(), tray.getType(), "添加外围数据", tray.getNumber());
+           logService.add(log);
            updateSuccess = trayOutsideService.upOutside(tray);
        }
        Integer code = updateSuccess ? Code.SAVE_OK : Code.SAVE_ERR;

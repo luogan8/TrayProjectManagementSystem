@@ -59,6 +59,15 @@ public class TrayEditController {
         return new Result(Code.GET_OK, data, "");
     }
 
+    @GetMapping("/log")
+    public Result getUserActionData(HttpServletRequest request){
+        if (!MyUtils.checkLogin(request)) {
+            return new Result(Code.SAVE_ERR, "", "非法操作！");
+        }
+        List<Log> data = logService.getAll();
+        return new Result(Code.GET_OK, data, "");
+    }
+
 
     @Autowired
     private TrayInfoService trayInfoService;
@@ -71,7 +80,7 @@ public class TrayEditController {
         boolean flag = trayEnterService.deleteById(id);
         if (flag){
             trayInfoService.deleteUpdate("lr", trayEnter.getNumber(), trayEnter.getName(), trayEnter.getType(), null);
-            logService.add(MyUtils.setLog(request, "删除领入:" + trayEnter.getName() + trayEnter.getType() + trayEnter.getNumber()));
+            logService.add(MyUtils.setLog(request, trayEnter.getName(), trayEnter.getType(), "领入数据删除", trayEnter.getNumber()));
         }
         return new Result(Code.DELETE_OK, flag, flag? "删除成功" : "删除失败");
     }
@@ -85,6 +94,7 @@ public class TrayEditController {
         boolean flag = trayNGService.deleteById(id);
         if (flag){
             trayInfoService.deleteUpdate("ng", trayNG.getNumber(), trayNG.getName(), trayNG.getType(), null);
+            logService.add(MyUtils.setLog(request, trayNG.getName(), trayNG.getType(), "NG数据删除", trayNG.getNumber()));
         }
         return new Result(Code.DELETE_OK, flag, flag? "删除成功" : "删除失败");
     }
@@ -104,6 +114,7 @@ public class TrayEditController {
         boolean flag = trayOutsideService.deleteById(id);
         if (flag){
             trayInfoService.deleteUpdate("outside", trayOutside.getNumber(), trayOutside.getName(), trayOutside.getType(), trayOutside.getState());
+            logService.add(MyUtils.setLog(request, trayOutside.getName(), trayOutside.getType(), "外围数据删除", trayOutside.getNumber()));
         }
         return new Result(Code.DELETE_OK, flag, flag? "删除成功" : "删除失败");
     }

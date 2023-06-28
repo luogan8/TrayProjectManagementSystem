@@ -6,6 +6,7 @@ import cn.lognn.domain.User;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class MyUtils {
@@ -31,12 +32,18 @@ public class MyUtils {
         return user.getName();
     }
 
-    public static Log setLog(HttpServletRequest request, String type){
+    public static Log setLog(HttpServletRequest request, String name, String type, String changeType, Integer sum){
         String userName = getUser(request);
         Log log = new Log();
+        Date date = new Date();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String formattedDate = sdf.format(date);
         log.setUser(userName);
-        log.setDatetime(new Date().toString());
+        log.setDatetime(formattedDate);
+        log.setName(name);
         log.setType(type);
+        log.setChangetype(changeType);
+        log.setNumber(sum);
         return log;
     }
 }

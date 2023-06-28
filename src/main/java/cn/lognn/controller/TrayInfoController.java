@@ -1,7 +1,9 @@
 package cn.lognn.controller;
 
 
+import cn.lognn.domain.Log;
 import cn.lognn.domain.TrayInfo;
+import cn.lognn.service.LogService;
 import cn.lognn.service.TrayInfoService;
 import cn.lognn.utils.MyUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -18,6 +20,9 @@ public class TrayInfoController {
     @Autowired
     private TrayInfoService trayInfoService;
 
+    @Autowired
+    private LogService logService;
+
     //添加
    @PostMapping("/add")
     public Result save(@RequestBody TrayInfo trayInfo, HttpServletRequest request){
@@ -29,6 +34,10 @@ public class TrayInfoController {
        }
        trayInfo.setUser(MyUtils.getUser(request));
        boolean flag = trayInfoService.save(trayInfo);
+       if (flag){
+           Log log = MyUtils.setLog(request, trayInfo.getTrayName(), trayInfo.getTrayType(), "添加新项目", null );
+           logService.add(log);
+       }
        Integer code = flag ? Code.SAVE_OK : Code.SAVE_ERR;
        String msg = flag ? "添加成功" : "添加失败";
        return new Result(code, flag, msg);

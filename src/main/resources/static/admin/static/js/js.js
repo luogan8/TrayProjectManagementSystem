@@ -30,7 +30,10 @@ var app = new Vue({
         trayTypeMenu:[],
         getNGLogDate:'',
         getLRLogName:'',
-        editTraysData: {type:'', data:[]}
+        editTraysData: {type:'', data:[]},
+        editDataIsTrue:false,
+        userActionDataIsTrue:false,
+        userActionData:[]
 
     },
     methods:{
@@ -224,11 +227,22 @@ var app = new Vue({
                 case 'outside':
                     url = '../edit/outside';
                     break;
+                case 'log':
+                    url = '../edit/log';
+                    break;
             }
             axios.get(url)
                 .then(function (response) {
-                    that.editTraysData.data = response.data.data;
-                    that.editTraysData.type = type;
+                    if (url === '../edit/log'){
+                        that.editDataIsTrue = false;
+                        that.userActionDataIsTrue = true;
+                        that.userActionData = response.data.data;
+                    }else {
+                        that.userActionDataIsTrue = false;
+                        that.editDataIsTrue = true;
+                        that.editTraysData.data = response.data.data;
+                        that.editTraysData.type = type;
+                    }
 
                 })
                 .catch(function (error) {
