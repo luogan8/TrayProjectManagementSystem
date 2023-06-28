@@ -59,6 +59,7 @@ public class TrayEditController {
         return new Result(Code.GET_OK, data, "");
     }
 
+
     @Autowired
     private TrayInfoService trayInfoService;
     @GetMapping("/delete/lr/{id}")
