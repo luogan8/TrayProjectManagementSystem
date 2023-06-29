@@ -7,6 +7,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.Date;
 
 public class MyUtils {
@@ -35,7 +37,8 @@ public class MyUtils {
     public static Log setLog(HttpServletRequest request, String name, String type, String changeType, Integer sum){
         String userName = getUser(request);
         Log log = new Log();
-        Date date = new Date();
+        ZoneId zoneId = ZoneId.of("GMT+8");
+        LocalDateTime date = LocalDateTime.now(zoneId);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String formattedDate = sdf.format(date);
         log.setUser(userName);
