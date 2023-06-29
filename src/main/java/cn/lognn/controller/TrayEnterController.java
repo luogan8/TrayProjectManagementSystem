@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 
 
 @RestController
@@ -42,6 +43,13 @@ public class TrayEnterController {
         String message = upInLineSuccess ? "添加成功" : "添加失败";
 
         return new Result(code, upInLineSuccess, message);
+    }
+
+    @GetMapping("/{name}")
+    public Result getByName(@PathVariable String name){
+        List<TrayEnter> trayEnters = trayEnterService.getByName(name);
+        Integer code = trayEnters.size() > 0 ? Code.GET_OK : Code.GET_ERR;
+        return new Result(code, trayEnters, "");
     }
 
 

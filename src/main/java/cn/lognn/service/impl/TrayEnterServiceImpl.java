@@ -72,5 +72,13 @@ public class TrayEnterServiceImpl implements TrayEnterService {
         return trayEnterDao.selectById(id);
     }
 
+    @Override
+    public List<TrayEnter> getByName(String name) {
+        LambdaQueryWrapper<TrayEnter> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(TrayEnter::getName, name);
+        lqw.orderByDesc(TrayEnter::getId);
+        return trayEnterDao.selectList(lqw);
+    }
+
 
 }

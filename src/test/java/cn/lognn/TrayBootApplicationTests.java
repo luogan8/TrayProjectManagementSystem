@@ -6,6 +6,8 @@ import cn.lognn.dao.TrayInfoDao;
 import cn.lognn.dao.UserDao;
 import cn.lognn.domain.Log;
 
+import cn.lognn.domain.TrayEnter;
+import cn.lognn.domain.TrayNG;
 import cn.lognn.service.*;
 
 import org.junit.jupiter.api.Test;
@@ -14,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.Date;
+import java.util.List;
 
 
 @SpringBootTest
@@ -53,7 +56,8 @@ class TrayBootApplicationTests {
 
     @Test
     void addLog(){
-        System.out.println(new Date());
+        List<TrayNG> leeds = trayNGService.getByNameAll("leeds");
+        System.out.println(leeds);
     }
 
 }

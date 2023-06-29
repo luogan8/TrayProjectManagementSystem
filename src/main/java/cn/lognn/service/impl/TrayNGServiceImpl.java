@@ -96,6 +96,14 @@ public class TrayNGServiceImpl implements TrayNGService {
         return trayNGDao.selectById(id);
     }
 
+    @Override
+    public List<TrayNG> getByNameAll(String name) {
+        LambdaQueryWrapper<TrayNG> lqw = new LambdaQueryWrapper<>();
+        lqw.eq(TrayNG::getName, name);
+        lqw.orderByDesc(TrayNG::getId);
+        return trayNGDao.selectList(lqw);
+    }
+
 
     private List<TrayNGDownload> getTrayNumber(List<TrayNGDownload> data) {
         List<TrayNGDownload> result = new ArrayList<>();

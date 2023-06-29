@@ -10,6 +10,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 //定义请求路径
@@ -40,6 +42,13 @@ public class TrayNGController {
        String message = updateSuccess ? "添加成功" : "添加失败,检查数据重复添加or系统无对应项目。";
 
        return new Result(code, updateSuccess, message);
+    }
+
+    @GetMapping("/{name}")
+    public Result getByName(@PathVariable String name){
+        List<TrayNG> trayNGS = trayNGService.getByNameAll(name);
+        Integer code = trayNGS.size() > 0 ? Code.GET_OK : Code.GET_ERR;
+        return new Result(code, trayNGS, "");
     }
 
 }

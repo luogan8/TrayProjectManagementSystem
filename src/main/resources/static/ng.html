@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- 引入Vue.js库 -->
+  <script src="./js/vue.js"></script>
+  <!-- 引入Bootstrap样式文件 -->
+  <link rel="stylesheet" href="./admin/static/css/bootstrap.min.css">
+  <title>NG明细</title>
+</head>
+<body>
+<div id="app" class="container">
+  <h3>{{ ngName }} -  NG明细   -- 仅支持查询2023-05以后的数据   </h3>
+  <button @click="getExcel">《{{ ngName }}》项目Tray NG明细导出Excel </button>
+
+  <div class="form-group">
+    <label for="typeSelect">类型：</label>
+    <select class="form-control" id="typeSelect" v-model="selectedType">
+      <option value="">全部</option>
+      <option v-for="type in uniqueTypes" :value="type">{{ type }}</option>
+    </select>
+  </div>
+
+  <table class="table table-striped">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>日期</th>
+      <th>型号</th>
+      <th>类型</th>
+      <th>数量</th>
+      <th>备注</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr v-for="(row, index) in filteredRows" :key="index">
+      <td>{{ index + 1 }}</td>
+      <td>{{ row.date }}</td>
+      <td>{{ row.name }}</td>
+      <td>{{ row.type }}</td>
+      <td>{{ row.number }}</td>
+      <td>{{ row.notes }}</td>
+    </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- 引入Bootstrap的JavaScript文件，以实现某些交互效果 -->
+<script src="./admin/static/js/bootstrap.bundle.min.js"></script>
+<script src="./static/js/axios.min.js"></script>
+<script>
+  new Vue({
+    el: '#app',
+    data: {
+      rows: [],
+      selectedModel: '',
+      selectedType: '',
+      ngName: ''
+    },
+    computed: {
+      uniqueModels() {
+        return [...new Set(this.rows.map(row => row.model))];
+      },
+      uniqueTypes() {
+        return [...new Set(this.rows.map(row => row.type))];
+      },
+      filteredRows() {
+        return this.rows.filter(row => {
+          return (
+                  (this.selectedModel === '' || row.model === this.selectedModel) &&
+                  (this.selectedType === '' || row.type === this.selectedType)
+          );
+        });
+      }
+    },
+    mounted() {
+      this.ngName = this.getParameterByName('ngName');
+      this.getRows();
+    },
+    methods: {
+      getParameterByName(name) {
+        const url = window.location.href;
+        name = name.replace(/[\[\]]/g, "\\$&");
+        const regex = new RegExp("[?&]" + name + "(=([^&#]*)|&|#|$)"),
+                results = regex.exec(url);
+        if (!results) return null;
+        if (!results[2]) return '';
+        return decodeURIComponent(results[2].replace(/\+/g, " "));
+      },
+      getRows() {
+        var that = this
+        axios.get('./traysNG/' + that.ngName)
+                .then(function (response) {
+                  that.rows = response.data.data;
+                })
+                .catch(function (error) {
+                  console.log(error);
+                });
+      },
+      getExcel() {
+        window.open("/download/ng/" + this.ngName);
+      }
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -30,4 +30,6 @@ public interface TrayEnterService {
     public boolean deleteById(Integer id);
 
     public TrayEnter getById(Integer id);
+
+    public List<TrayEnter> getByName(String name);
 }
