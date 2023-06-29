@@ -38,9 +38,13 @@ public class MyUtils {
     public static Log setLog(HttpServletRequest request, String name, String type, String changeType, Integer sum){
         String userName = getUser(request);
         Log log = new Log();
+        //获取东八区时区ID
         ZoneId zoneId = ZoneId.of("GMT+8");
+        //获取当前时间
         LocalDateTime date = LocalDateTime.now(zoneId);
+        //创建格式化器
         DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        //格式化时间
         String dateTime = date.format(dateTimeFormatter);
         log.setUser(userName);
         log.setDatetime(dateTime);
