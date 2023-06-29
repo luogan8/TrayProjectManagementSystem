@@ -9,6 +9,7 @@ import jakarta.servlet.http.HttpSession;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class MyUtils {
@@ -39,10 +40,10 @@ public class MyUtils {
         Log log = new Log();
         ZoneId zoneId = ZoneId.of("GMT+8");
         LocalDateTime date = LocalDateTime.now(zoneId);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        String formattedDate = sdf.format(date);
+        DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+        String dateTime = date.format(dateTimeFormatter);
         log.setUser(userName);
-        log.setDatetime(formattedDate);
+        log.setDatetime(dateTime);
         log.setName(name);
         log.setType(type);
         log.setChangetype(changeType);
