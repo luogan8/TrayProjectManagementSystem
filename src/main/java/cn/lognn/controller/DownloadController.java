@@ -1,6 +1,7 @@
 package cn.lognn.controller;
 
 
+import cn.lognn.domain.TrayInfo;
 import cn.lognn.domain.TrayInfoDownload;
 import cn.lognn.domain.TrayLRDownload;
 import cn.lognn.domain.TrayNGDownload;
@@ -55,8 +56,8 @@ public class DownloadController {
 
     /**
      * 库存信息导出
-     * @param response 无可奉告
-     * @throws IOException 无可奉告
+     * @param response  /
+     * @throws IOException /
      */
     @GetMapping("/info")
     public void infoDownload(HttpServletResponse response) throws IOException {
@@ -64,6 +65,19 @@ public class DownloadController {
         String fileName = "Tray库存信息";
         setResponseHeaders(response, fileName);
         EasyExcel.write(response.getOutputStream(), TrayInfoDownload.class).sheet("Tray库存信息").doWrite(data);
+    }
+
+    /**
+     * 导出全部
+     * @param response
+     * @throws IOException
+     */
+    @GetMapping("/infoAll")
+    public void infoAllDownload(HttpServletResponse response) throws IOException {
+        List<TrayInfo> data = trayInfoService.getAll();
+        String fileName = "Tray库存信息@all";
+        setResponseHeaders(response, fileName);
+        EasyExcel.write(response.getOutputStream(), TrayInfoDownload.class).sheet("Tray库存信息@all").doWrite(data);
     }
 
     /**

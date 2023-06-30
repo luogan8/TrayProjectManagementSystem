@@ -105,6 +105,10 @@ public class TrayInfoServiceImpl implements TrayInfoService {
         return trayInfo != null ? trayInfo.getTrayNumber() : "未查询到信息，你可以添加项目，再导出数据！";
     }
 
+    /**
+     * 获取 Inside&outside不为0
+     * @return trayInfoDownload
+     */
     @Override
     public List<TrayInfoDownload> getDownload() {
         LambdaQueryWrapper<TrayInfoDownload> lqw = new LambdaQueryWrapper<>();
@@ -112,6 +116,8 @@ public class TrayInfoServiceImpl implements TrayInfoService {
                 .ne(TrayInfoDownload::getTrayOutside, 0);
         return trayInfoDownloadDao.selectList(lqw);
     }
+
+
 
     /**
      * 删除数据时根据ID更新库存
