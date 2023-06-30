@@ -74,7 +74,7 @@ public class DownloadController {
      */
     @GetMapping("/infoAll")
     public void infoAllDownload(HttpServletResponse response) throws IOException {
-        List<TrayInfo> data = trayInfoService.getAll();
+        List<TrayInfoDownload> data = trayInfoService.getAllDown();
         String fileName = "Tray库存信息@all";
         setResponseHeaders(response, fileName);
         EasyExcel.write(response.getOutputStream(), TrayInfoDownload.class).sheet("Tray库存信息@all").doWrite(data);

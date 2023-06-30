@@ -3,6 +3,7 @@ package cn.lognn.service.impl;
 import cn.lognn.dao.TrayInfoDao;
 import cn.lognn.dao.TrayNGDao;
 import cn.lognn.dao.TrayNGDownloadDao;
+import cn.lognn.domain.NGLogDate;
 import cn.lognn.domain.TrayInfo;
 import cn.lognn.domain.TrayNG;
 import cn.lognn.domain.TrayNGDownload;
@@ -102,6 +103,11 @@ public class TrayNGServiceImpl implements TrayNGService {
         lqw.eq(TrayNG::getName, name);
         lqw.orderByDesc(TrayNG::getId);
         return trayNGDao.selectList(lqw);
+    }
+
+    @Override
+    public List<NGLogDate> getNGLogDate() {
+        return trayNGDao.getNGDate();
     }
 
 

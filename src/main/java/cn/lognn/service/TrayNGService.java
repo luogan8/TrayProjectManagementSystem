@@ -1,6 +1,7 @@
 package cn.lognn.service;
 
 
+import cn.lognn.domain.NGLogDate;
 import cn.lognn.domain.TrayNG;
 import cn.lognn.domain.TrayNGDownload;
 
@@ -29,4 +30,10 @@ public interface TrayNGService {
     public TrayNG getById(Integer id);
 
     public List<TrayNG> getByNameAll(String name);
+
+    /**
+     * 获取NG时间
+     * @return
+     */
+    public  List<NGLogDate> getNGLogDate();
 }

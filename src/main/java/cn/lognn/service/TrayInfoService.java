@@ -41,6 +41,8 @@ public interface TrayInfoService {
      */
     public List<TrayInfo> getAll();
 
+    public List<TrayInfoDownload> getAllDown();
+
     /**
      * add Tray盘信息
      * @return

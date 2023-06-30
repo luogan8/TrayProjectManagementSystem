@@ -33,8 +33,13 @@ var app = new Vue({
         editTraysData: {type:'', data:[]},
         editDataIsTrue:false,
         userActionDataIsTrue:false,
-        userActionData:[]
+        userActionData:[],
+        ngLogDate:[]
 
+    },
+    //页面加载完执行
+    mounted(){
+        this.getNGLogDateData();
     },
     methods:{
         // TODO 退出登录
@@ -205,6 +210,10 @@ var app = new Vue({
         downloadInfoLog:function (){
             window.open("../download/info")
         },
+        //TODO 导出全部库存信息
+        downloadInfoAllLog:function (){
+            window.open("../download/infoAll")
+        },
         //TODO 导出领入信息
         downloadLRLog:function (){
             if (this.getLRLogName === ''){
@@ -265,6 +274,16 @@ var app = new Vue({
                     });
             }
         },
+        getNGLogDateData: function (){
+            var that = this
+            axios.get('../traysNG/getNGDate/')
+                .then(function (response) {
+                    that.ngLogDate = response.data.data;
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        }
 
     }
 });

@@ -183,6 +183,10 @@
 		}
 	});
 
+	function alt(){
+		alert(123)
+	}
+
 	new Vue({
 		el: "#app",
 		data: {
@@ -205,6 +209,9 @@
 			},
 			selectSuggestion(suggestion) {
 				this.searchQuery = suggestion;
+
+				//用户选择后提交事件
+				getByName(suggestion)
 				this.showSuggestions = false;
 			},
 			// TODO 获取tray name
@@ -217,7 +224,7 @@
 						.catch(function (error) {
 							console.log(error);
 						});
-			},
+			}
 		}
 	});
 </script>

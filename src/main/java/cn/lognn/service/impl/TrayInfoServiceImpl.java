@@ -59,6 +59,11 @@ public class TrayInfoServiceImpl implements TrayInfoService {
     }
 
     @Override
+    public List<TrayInfoDownload> getAllDown() {
+        return trayInfoDownloadDao.selectList(null);
+    }
+
+    @Override
     public boolean addTrays() {
         FileReader fileReader = new FileReader("trays.txt");
         String s = fileReader.readString();

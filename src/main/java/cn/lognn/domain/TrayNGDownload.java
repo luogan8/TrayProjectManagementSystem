@@ -18,8 +18,8 @@ import java.util.Date;
 @ColumnWidth(20)
 @HeadStyle(fillPatternType = FillPatternTypeEnum.SOLID_FOREGROUND, fillForegroundColor = 49)
 @ContentStyle(horizontalAlignment = HorizontalAlignmentEnum.CENTER, verticalAlignment = VerticalAlignmentEnum.CENTER,
-                borderLeft = BorderStyleEnum.HAIR, borderRight = BorderStyleEnum.HAIR,
-                borderTop = BorderStyleEnum.HAIR, borderBottom = BorderStyleEnum.HAIR)
+                borderLeft = BorderStyleEnum.THIN, borderRight = BorderStyleEnum.THIN,
+                borderTop = BorderStyleEnum.THIN, borderBottom = BorderStyleEnum.THIN)
 public class TrayNGDownload {
     @ExcelProperty({"2F TrayClean 报废数据", "日期"})
     @DateTimeFormat("yyyy年MM月dd日")

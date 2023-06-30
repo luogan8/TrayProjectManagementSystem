@@ -2,6 +2,7 @@ package cn.lognn.controller;
 
 
 import cn.lognn.domain.Log;
+import cn.lognn.domain.NGLogDate;
 import cn.lognn.domain.TrayNG;
 import cn.lognn.service.LogService;
 import cn.lognn.service.TrayNGService;
@@ -49,6 +50,17 @@ public class TrayNGController {
         List<TrayNG> trayNGS = trayNGService.getByNameAll(name);
         Integer code = trayNGS.size() > 0 ? Code.GET_OK : Code.GET_ERR;
         return new Result(code, trayNGS, "");
+    }
+
+    /**
+     * 获取最近3次的报废录入时间
+     * @return
+     */
+    @GetMapping("/getNGDate/")
+    public Result getNGDate(){
+        List<NGLogDate> ngLogDate = trayNGService.getNGLogDate();
+        Integer code = ngLogDate.size() > 0 ? Code.GET_OK : Code.GET_ERR;
+        return new Result(code, ngLogDate, "");
     }
 
 }
