@@ -63,4 +63,5 @@ public class TrayNGController {
         return new Result(code, ngLogDate, "");
     }
 
+
 }
