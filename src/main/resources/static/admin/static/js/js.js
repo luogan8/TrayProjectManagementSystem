@@ -47,7 +47,7 @@ var app = new Vue({
         // TODO 添加用户
         addUser: function (){
             var that = this;
-            axios.post('../users', {
+            axios.post('../users/add', {
                 userId: that.newUserId,
                 name: that.newUserName
             })

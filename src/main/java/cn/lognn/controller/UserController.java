@@ -2,6 +2,7 @@ package cn.lognn.controller;
 
 import cn.lognn.domain.User;
 import cn.lognn.domain.UserChangePassword;
+import cn.lognn.service.LogService;
 import cn.lognn.service.UserService;
 import cn.lognn.utils.MyUtils;
 import jakarta.servlet.http.HttpServletRequest;
@@ -15,6 +16,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @Autowired
+    private LogService logService;
+
 
     /**
      * 用户登录
@@ -24,7 +28,9 @@ public class UserController {
      */
     @PostMapping("/login")
     public Result loginP(@RequestBody User user, HttpServletRequest request){
-        return userService.login(user, request);
+        Result login = userService.login(user, request);
+        logService.add(MyUtils.setLog(request,null,null,"登陆", null));
+        return login;
     }
 
 /*    @GetMapping ("/login")
@@ -50,6 +56,7 @@ public class UserController {
         boolean flag = userService.changePassword(userChangePassword);
         Integer code = flag ? Code.UPDATE_OK : Code.UPDATE_ERR;
         String msg = flag ? "修改成功" : "修改失败，请检查原密码是否填写正确。";
+        logService.add(MyUtils.setLog(request,null,null,"修改密码", null));
         if (flag){
             MyUtils.logOut(request);
         }
@@ -62,7 +69,7 @@ public class UserController {
      * @param user
      * @return
      */
-    @PostMapping()
+    @PostMapping("/add")
     public Result addUser (HttpServletRequest request, @RequestBody User user){
         if (!MyUtils.checkLogin(request)) {
             return new Result(Code.SAVE_ERR, "", "非法操作！");
@@ -71,6 +78,7 @@ public class UserController {
             return new Result(Code.SAVE_ERR, "", "添加的用户已经存在");
         }
         boolean flag = userService.add(user);
+        logService.add(MyUtils.setLog(request,null,null,"添加用户", null));
         Integer code = flag ? Code.SAVE_OK : Code.SAVE_ERR;
         String msg = flag ? "添加成功" : "添加失败";
         return new Result(code, null, msg);
