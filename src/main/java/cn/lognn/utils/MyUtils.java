@@ -54,4 +54,9 @@ public class MyUtils {
         log.setNumber(sum);
         return log;
     }
+
+    public static void logOut(HttpServletRequest request){
+        HttpSession session = request.getSession();
+        session.invalidate();
+    }
 }

@@ -34,7 +34,9 @@ var app = new Vue({
         editDataIsTrue:false,
         userActionDataIsTrue:false,
         userActionData:[],
-        ngLogDate:[]
+        ngLogDate:[],
+        newUserId:'',
+        newUserName:''
 
     },
     //页面加载完执行
@@ -42,6 +44,20 @@ var app = new Vue({
         this.getNGLogDateData();
     },
     methods:{
+        // TODO 添加用户
+        addUser: function (){
+            var that = this;
+            axios.post('../users', {
+                userId: that.newUserId,
+                name: that.newUserName
+            })
+                .then(function (response) {
+                    alert(response.data.msg)
+                })
+                .catch(function (error) {
+                    console.log(error);
+                });
+        },
         // TODO 退出登录
         logout: function() {
             axios.get("../users/logout?times=" + Date.now())
