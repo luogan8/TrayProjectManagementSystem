@@ -56,8 +56,7 @@ class TrayBootApplicationTests {
 
     @Test
     void addLog(){
-        List<TrayNG> leeds = trayNGService.getByNameAll("leeds");
-        System.out.println(leeds);
+
     }
 
 }

@@ -59,6 +59,10 @@ public class TrayNGController {
     @GetMapping("/getNGDate/")
     public Result getNGDate(){
         List<NGLogDate> ngLogDate = trayNGService.getNGLogDate();
+        for (NGLogDate logDate : ngLogDate) {
+            //格式化日期  yyyy-MM-dd
+            logDate.setDate(logDate.getDate().substring(0,10));
+        }
         Integer code = ngLogDate.size() > 0 ? Code.GET_OK : Code.GET_ERR;
         return new Result(code, ngLogDate, "");
     }

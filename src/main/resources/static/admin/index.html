@@ -51,8 +51,10 @@
       <div style="display: inline-block;">
         <h4 class="mt-3 mb-3">报废数据导出</h4>
         <div class="mb-12">
-          <label for="description" class="form-label">选择日期</label>
-          <span>近期录入： {{ngLogDate[0].date}} 丨 {{ngLogDate[1].date}} 丨 {{ngLogDate[2].date}}</span>
+          <label for="description" class="form-label">选择日期:</label>
+          <a href="#" onclick="openurl(this)">{{ngLogDate[0].date}}</a>丨
+          <a href="#" onclick="openurl(this)">{{ngLogDate[1].date}}</a>丨
+          <a href="#" onclick="openurl(this)">{{ngLogDate[2].date}}</a>
           <input type="date" class="mb-3 form-control" id="getNGLogDate" v-model="getNGLogDate">
           <button type="button" class="btn btn-primary" @click="downloadNGLog">导出</button>
 
@@ -424,5 +426,12 @@
 <script src="./static/js/vue.js"></script>
 <script src="../static/js/axios.min.js"></script>
 <script src="./static/js/js.js"></script>
+<script>
+  // 打开NG数据导出的URL
+  function openurl(element){
+    var value = element.innerText;
+    window.open("../download/ng/" + value)
+  }
+</script>
 </body>
 </html>
