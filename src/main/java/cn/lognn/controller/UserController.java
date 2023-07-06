@@ -30,6 +30,7 @@ public class UserController {
      */
     @PostMapping("/login")
     public Result loginP(@RequestBody User user, HttpServletRequest request){
+        //返回登陆结果
         Result login = userService.login(user, request);
         //登陆成功再添加日志
         if (Objects.equals(login.getCode(), Code.SAVE_OK)){
@@ -37,13 +38,6 @@ public class UserController {
         }
         return login;
     }
-
-/*    @GetMapping ("/login")
-    public Result loginG(HttpServletRequest request){
-        HttpSession session = request.getSession();
-        Integer state = session.getAttribute("user") != null ? Code.LOGIN_STATE_Y : Code.LOGIN_STATE_N;
-        return new Result(state,"","别逗");
-    }*/
 
     /**
      * 用户退出登录

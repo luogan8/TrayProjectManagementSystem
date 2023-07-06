@@ -17,6 +17,12 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
+    /**
+     * 登陆
+     * @param user user
+     * @param request request
+     * @return 登陆结果
+     */
     @Override
     public Result login(User user, HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -28,7 +34,7 @@ public class UserServiceImpl implements UserService {
         LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<>();
         lqw.eq(User::getUserId, user.getUserId()).eq(User::getPassword, user.getPassword());
         User user1 = userDao.selectOne(lqw);
-        //判断登录结果
+        //判断并返回登录结果
         if (user1 != null){
             session.setAttribute("user", user1);
             return new Result(Code.SAVE_OK,"","登录成功");
