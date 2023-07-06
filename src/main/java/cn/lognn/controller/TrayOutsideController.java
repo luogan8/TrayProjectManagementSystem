@@ -32,8 +32,17 @@ public class TrayOutsideController {
        tray.setUser(MyUtils.getUser(request));
        boolean addSuccess = trayOutsideService.add(tray);
        boolean updateSuccess = false;
+       String changeType = "";
+       switch (tray.getState()){
+           case 0:
+               changeType = "添加外围搬出数据";
+               break;
+           case 1:
+               changeType = "添加外围搬入数据";
+               break;
+       }
        if (addSuccess){
-           Log log = MyUtils.setLog(request, tray.getName(), tray.getType(), "添加外围数据", tray.getNumber());
+           Log log = MyUtils.setLog(request, tray.getName(), tray.getType(), changeType, tray.getNumber());
            logService.add(log);
            updateSuccess = trayOutsideService.upOutside(tray);
        }

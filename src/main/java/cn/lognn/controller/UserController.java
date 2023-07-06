@@ -9,6 +9,8 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Objects;
+
 
 @RestController
 @RequestMapping("/users")
@@ -29,7 +31,10 @@ public class UserController {
     @PostMapping("/login")
     public Result loginP(@RequestBody User user, HttpServletRequest request){
         Result login = userService.login(user, request);
-        logService.add(MyUtils.setLog(request,null,null,"登陆", null));
+        //登陆成功再添加日志
+        if (Objects.equals(login.getCode(), Code.SAVE_OK)){
+            logService.add(MyUtils.setLog(request,null,null,"登陆", null));
+        }
         return login;
     }
 
