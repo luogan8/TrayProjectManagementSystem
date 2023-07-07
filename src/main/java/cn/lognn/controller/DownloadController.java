@@ -1,6 +1,5 @@
 package cn.lognn.controller;
 
-
 import cn.lognn.domain.TrayInfo;
 import cn.lognn.domain.TrayInfoDownload;
 import cn.lognn.domain.TrayLRDownload;
@@ -41,10 +40,11 @@ public class DownloadController {
     }
 
     /**
-     * 报废记录导出
-     * @param response 无可奉告
-     * @param date 无可奉告
-     * @throws IOException 无可奉告
+     * 导出报废记录
+     *
+     * @param response HTTP响应对象
+     * @param date     日期
+     * @throws IOException IO异常
      */
     @GetMapping("/ng/{date}")
     public void ngDownload(HttpServletResponse response, @PathVariable String date) throws IOException {
@@ -55,9 +55,10 @@ public class DownloadController {
     }
 
     /**
-     * 库存信息导出
-     * @param response  /
-     * @throws IOException /
+     * 导出库存信息
+     *
+     * @param response HTTP响应对象
+     * @throws IOException IO异常
      */
     @GetMapping("/info")
     public void infoDownload(HttpServletResponse response) throws IOException {
@@ -68,9 +69,10 @@ public class DownloadController {
     }
 
     /**
-     * 导出全部
-     * @param response
-     * @throws IOException
+     * 导出全部库存信息
+     *
+     * @param response HTTP响应对象
+     * @throws IOException IO异常
      */
     @GetMapping("/infoAll")
     public void infoAllDownload(HttpServletResponse response) throws IOException {
@@ -81,10 +83,11 @@ public class DownloadController {
     }
 
     /**
-     * 领入记录导出
-     * @param response
-     * @param name
-     * @throws IOException
+     * 导出领入记录
+     *
+     * @param response HTTP响应对象
+     * @param name     领入名称
+     * @throws IOException IO异常
      */
     @GetMapping("/lr/{name}")
     public void lrDownload(HttpServletResponse response, @PathVariable String name) throws IOException {
@@ -96,9 +99,10 @@ public class DownloadController {
 
     /**
      * 根据项目名称导出NG数据
-     * @param response 返回
-     * @param name 项目名称
-     * @throws IOException io异常抛出
+     *
+     * @param response HTTP响应对象
+     * @param name     项目名称
+     * @throws IOException IO异常
      */
     @GetMapping("/ngProject/{name}")
     public void ngGetByNameDownload(HttpServletResponse response, @PathVariable String name) throws IOException {

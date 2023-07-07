@@ -14,32 +14,31 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @Autowired
-    private UserDao userDao;
 
-    /**
-     * 登陆
-     * @param user user
-     * @param request request
-     * @return 登陆结果
-     */
+    private final UserDao userDao;
+
+    @Autowired
+    public UserServiceImpl(UserDao userDao) {
+        this.userDao = userDao;
+    }
+
     @Override
     public Result login(User user, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        //是否登录状态
-        if (session.getAttribute("user") != null){
-            return new Result(Code.SAVE_ERR, "", "你已经登陆过了");
+        // Check if user is already logged in
+        if (session.getAttribute("user") != null) {
+            return new Result(Code.SAVE_ERR, "", "You are already logged in.");
         }
-        //校验
+        // Validate user credentials
         LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<>();
         lqw.eq(User::getUserId, user.getUserId()).eq(User::getPassword, user.getPassword());
         User user1 = userDao.selectOne(lqw);
-        //判断并返回登录结果
-        if (user1 != null){
+        // Check login result and set session
+        if (user1 != null) {
             session.setAttribute("user", user1);
-            return new Result(Code.SAVE_OK,"","登录成功");
+            return new Result(Code.SAVE_OK, "", "Login successful.");
         }
-        return new Result(Code.SAVE_ERR,"","登录失败，请检查账户或密码是否有误！");
+        return new Result(Code.SAVE_ERR, "", "Login failed. Please check your username or password.");
     }
 
     @Override
@@ -48,12 +47,12 @@ public class UserServiceImpl implements UserService {
         lqw.eq(User::getUserId, userChangePassword.getUserId())
                 .eq(User::getPassword, userChangePassword.getOldPassword());
         User user = userDao.selectOne(lqw);
-        if (user != null){
+        if (user != null) {
             user.setPassword(userChangePassword.getNewPassword());
             LambdaQueryWrapper<User> lambdaQueryWrapper = new LambdaQueryWrapper<>();
             lambdaQueryWrapper.eq(User::getUserId, user.getUserId());
             int update = userDao.update(user, lambdaQueryWrapper);
-            return  update > 0;
+            return update > 0;
         }
         return false;
     }
@@ -65,17 +64,10 @@ public class UserServiceImpl implements UserService {
         return userDao.insert(user) > 0;
     }
 
-    /**
-     * 检查用户是否已经存在
-     * @param user
-     * @return
-     */
     @Override
     public boolean checkUser(User user) {
         LambdaQueryWrapper<User> lqw = new LambdaQueryWrapper<>();
         lqw.eq(User::getUserId, user.getUserId());
         return userDao.selectOne(lqw) != null;
     }
-
-
 }

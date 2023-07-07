@@ -6,12 +6,15 @@ import cn.lognn.service.TrayYardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 @Service
 public class TrayYardServiceImpl implements TrayYardService {
-    @Autowired
-    private TrayYardDao trayYardDao;
 
+    private final TrayYardDao trayYardDao;
+
+    @Autowired
+    public TrayYardServiceImpl(TrayYardDao trayYardDao) {
+        this.trayYardDao = trayYardDao;
+    }
 
     @Override
     public boolean add(TrayYard tray) {
@@ -19,13 +22,4 @@ public class TrayYardServiceImpl implements TrayYardService {
         return trayYardDao.insert(tray) > 0;
     }
 
-    /**
-     * 更新库存
-     * @param tray
-     * @return
-     */
-    @Override
-    public boolean upYard(TrayYard tray) {
-        return false;
-    }
 }

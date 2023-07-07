@@ -8,33 +8,35 @@ import jakarta.servlet.http.HttpServletRequest;
 public interface UserService {
 
     /**
-     * 登陆
-     * @param user 用户封装对象
-     * @param request httpRequest对象
-     * @return 登陆结果
+     * 用户登录
+     *
+     * @param user    用户对象
+     * @param request HttpServletRequest对象
+     * @return 登录结果
      */
-    public Result login(User user, HttpServletRequest request);
-
+    Result login(User user, HttpServletRequest request);
 
     /**
      * 修改密码
-     * @param userChangePassword 封装的serChangePassword对象
-     * @return 修改结果 boolean
+     *
+     * @param userChangePassword 封装的用户修改密码对象
+     * @return 修改密码结果，成功返回true，否则返回false
      */
-    public boolean changePassword(UserChangePassword userChangePassword);
-
+    boolean changePassword(UserChangePassword userChangePassword);
 
     /**
      * 添加用户
-     * @param user user对象
-     * @return 添加结果 boolean
+     *
+     * @param user 用户对象
+     * @return 添加结果，成功返回true，否则返回false
      */
-    public boolean add(User user);
+    boolean add(User user);
 
     /**
-     * 检查添加用户是否已经存在
-     * @param user user对象
-     * @return boolean
+     * 检查用户是否已存在
+     *
+     * @param user 用户对象
+     * @return 如果用户已存在返回true，否则返回false
      */
-    public boolean checkUser(User user);
+    boolean checkUser(User user);
 }

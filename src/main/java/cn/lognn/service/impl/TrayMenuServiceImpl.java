@@ -6,31 +6,32 @@ import cn.lognn.service.TrayMenuService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class TrayMenuServiceImpl implements TrayMenuService {
+
+    private final TrayInfoDao trayInfoDao;
+
     @Autowired
-    private TrayInfoDao trayInfoDao;
+    public TrayMenuServiceImpl(TrayInfoDao trayInfoDao) {
+        this.trayInfoDao = trayInfoDao;
+    }
 
     @Override
     public List<String> getTrayNameMenu() {
-        List<String> list = new ArrayList<>();
         List<TrayInfo> names = trayInfoDao.getNames();
-        for (TrayInfo name : names) {
-            list.add(name.getTrayName());
-        }
-        return list;
+        return names.stream()
+                .map(TrayInfo::getTrayName)
+                .collect(Collectors.toList());
     }
 
     @Override
     public List<String> getTrayTypeMenu(String trayName) {
-        List<String> list = new ArrayList<>();
         List<TrayInfo> types = trayInfoDao.getTypes(trayName);
-        for (TrayInfo type : types) {
-            list.add(type.getTrayType());
-        }
-        return list;
+        return types.stream()
+                .map(TrayInfo::getTrayType)
+                .collect(Collectors.toList());
     }
 }

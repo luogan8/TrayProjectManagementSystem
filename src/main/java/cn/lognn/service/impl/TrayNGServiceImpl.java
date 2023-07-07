@@ -13,57 +13,53 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 import java.util.ArrayList;
 import java.util.List;
 
-
 @Service
 public class TrayNGServiceImpl implements TrayNGService {
-    @Autowired
-    private TrayNGDownloadDao trayNGDownloadDao;
-    @Autowired
-    private TrayInfoDao trayInfoDao;
+
+    private final TrayNGDownloadDao trayNGDownloadDao;
+    private final TrayInfoDao trayInfoDao;
+    private final TrayNGDao trayNGDao;
+    private final TrayInfoService trayInfoService;
 
     @Autowired
-    private TrayNGDao trayNGDao;
-
-    @Autowired
-    private TrayInfoService trayInfoService;
-
-
-
-
+    public TrayNGServiceImpl(
+            TrayNGDownloadDao trayNGDownloadDao,
+            TrayInfoDao trayInfoDao,
+            TrayNGDao trayNGDao,
+            TrayInfoService trayInfoService) {
+        this.trayNGDownloadDao = trayNGDownloadDao;
+        this.trayInfoDao = trayInfoDao;
+        this.trayNGDao = trayNGDao;
+        this.trayInfoService = trayInfoService;
+    }
 
     @Override
     public boolean add(TrayNG trayNG) {
         trayNG.setDate(trayNG.getDate().replace("T", " ") + ":00");
         LambdaQueryWrapper<TrayNG> lqw = new LambdaQueryWrapper<>();
-        lqw
-                .eq(TrayNG::getName, trayNG.getName())
+        lqw.eq(TrayNG::getName, trayNG.getName())
                 .eq(TrayNG::getType, trayNG.getType())
                 .eq(TrayNG::getNumber, trayNG.getNumber())
                 .eq(TrayNG::getDate, trayNG.getDate());
         List<TrayNG> trayNGS = trayNGDao.selectList(lqw);
-        if (trayNGS.size() > 0){
+        if (!trayNGS.isEmpty()) {
             return false;
         }
         return trayNGDao.insert(trayNG) > 0;
     }
 
-
-    /**
-     * 更新库存
-     * @param tray
-     * @return
-     */
     @Override
     public boolean update(TrayNG tray) {
         LambdaQueryWrapper<TrayInfo> lqw = new LambdaQueryWrapper<>();
-        lqw.eq(TrayInfo::getTrayName, tray.getName()).eq(TrayInfo::getTrayType, tray.getType());
+        lqw.eq(TrayInfo::getTrayName, tray.getName())
+                .eq(TrayInfo::getTrayType, tray.getType());
         TrayInfo trayInfo = trayInfoDao.selectOne(lqw);
         trayInfo.setTrayInside(Math.max(trayInfo.getTrayInside() - tray.getNumber(), 0));
-        lqw.eq(TrayInfo::getTrayName, trayInfo.getTrayName()).eq(TrayInfo::getTrayType, tray.getType());
+        lqw.eq(TrayInfo::getTrayName, trayInfo.getTrayName())
+                .eq(TrayInfo::getTrayType, tray.getType());
         return trayInfoDao.update(trayInfo, lqw) > 0;
     }
 
@@ -82,7 +78,6 @@ public class TrayNGServiceImpl implements TrayNGService {
     @Override
     public boolean deleteById(Integer id) {
         return trayNGDao.deleteById(id) == 1;
-
     }
 
     @Override
@@ -110,7 +105,6 @@ public class TrayNGServiceImpl implements TrayNGService {
         return trayNGDao.getNGDate();
     }
 
-
     private List<TrayNGDownload> getTrayNumber(List<TrayNGDownload> data) {
         List<TrayNGDownload> result = new ArrayList<>();
         for (TrayNGDownload datum : data) {
@@ -120,6 +114,4 @@ public class TrayNGServiceImpl implements TrayNGService {
         }
         return result;
     }
-
-
 }

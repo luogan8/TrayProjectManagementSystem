@@ -13,6 +13,7 @@ import java.util.List;
 
 @Service
 public class TrayOutsideServiceImpl implements TrayOutsideService {
+
     private final TrayOutsideDao trayOutsideDao;
     private final TrayInfoDao trayInfoDao;
 
@@ -22,37 +23,27 @@ public class TrayOutsideServiceImpl implements TrayOutsideService {
         this.trayInfoDao = trayInfoDao;
     }
 
-    /**
-     * 添加记录
-     * @param tray
-     * @return
-     */
     @Override
     public boolean add(TrayOutside tray) {
         tray.setDate(tray.getDate().replace("T", " ") + ":00");
         LambdaQueryWrapper<TrayOutside> lqw = new LambdaQueryWrapper<>();
-        lqw
-                .eq(TrayOutside::getName, tray.getName())
+        lqw.eq(TrayOutside::getName, tray.getName())
                 .eq(TrayOutside::getType, tray.getType())
                 .eq(TrayOutside::getNumber, tray.getNumber())
                 .eq(TrayOutside::getDate, tray.getDate())
                 .eq(TrayOutside::getState, tray.getState());
-        List<TrayOutside> trayNGS = trayOutsideDao.selectList(lqw);
-        if (trayNGS.size() > 0){
+        List<TrayOutside> trayOutsideList = trayOutsideDao.selectList(lqw);
+        if (!trayOutsideList.isEmpty()) {
             return false;
         }
         return trayOutsideDao.insert(tray) > 0;
     }
 
-    /**
-     * 更新库存
-     * @param tray
-     * @return
-     */
     @Override
     public boolean upOutside(TrayOutside tray) {
         LambdaQueryWrapper<TrayInfo> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(TrayInfo::getTrayName, tray.getName()).eq(TrayInfo::getTrayType, tray.getType());
+        queryWrapper.eq(TrayInfo::getTrayName, tray.getName())
+                .eq(TrayInfo::getTrayType, tray.getType());
         TrayInfo trayInfo = trayInfoDao.selectOne(queryWrapper);
         Integer state = tray.getState();
         if (state == 0) {

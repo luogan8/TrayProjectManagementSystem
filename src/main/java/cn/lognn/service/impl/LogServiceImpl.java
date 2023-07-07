@@ -12,8 +12,13 @@ import java.util.List;
 @Service
 public class LogServiceImpl implements LogService {
 
+    private final LogDao logDao;
+
     @Autowired
-    private LogDao logDao;
+    public LogServiceImpl(LogDao logDao) {
+        this.logDao = logDao;
+    }
+
     @Override
     public boolean add(Log log) {
         return logDao.insert(log) > 0;
@@ -21,8 +26,8 @@ public class LogServiceImpl implements LogService {
 
     @Override
     public List<Log> getAll() {
-        LambdaQueryWrapper<Log> lqw = new LambdaQueryWrapper<>();
-        lqw.orderByDesc(Log::getId);
-        return logDao.selectList(lqw);
+        LambdaQueryWrapper<Log> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.orderByDesc(Log::getId);
+        return logDao.selectList(queryWrapper);
     }
 }
